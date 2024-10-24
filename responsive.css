@@ -1,0 +1,116 @@
+@media only screen and (max-width: 2200px){
+    .info-title { 
+        font-size: 24px;
+    }
+    .infoMain { 
+        font-size: 20px;
+    }
+    #instructionsPopup {
+        padding: 15px;
+        width: 420px;
+    } 
+    #instructionsPopup p, #instructionsPopup ul { 
+        font-size: 14px;
+    }
+    #instructionsPopup ul { 
+        padding-left: 15px;
+    }
+    .century_text, .week_month, .year_code { 
+        font-size: 16px;
+    }
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 1440px){
+    .cell { 
+        padding: 8px;
+    }
+    .info-title { 
+        font-size: 22px;
+    }
+    .infoMain { 
+        font-size: 18px;
+    }
+    #instructionsPopup {
+        padding: 10px;
+        width: 420px;
+    } 
+    #instructionsPopup p, #instructionsPopup ul { 
+        font-size: 13.5px;
+    }
+    #instructionsPopup ul { 
+        padding-left: 15px;
+    }
+    .century_text, .week_month, .year_code { 
+        font-size: 14px;
+    }
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width: 1200px){
+    .cell { 
+        padding: 8px;
+    }
+    .info-title { 
+        font-size: 22px;
+    }
+    .infoMain { 
+        font-size: 18px;
+    }
+    #instructionsPopup {
+        padding: 10px;
+        width: 390px;
+    } 
+    #instructionsPopup p, #instructionsPopup ul { 
+        font-size: 13px;
+    }
+    #instructionsPopup ul { 
+        padding-left: 15px;
+    }
+    .century_text, .week_month, .year_code { 
+        font-size: 14px;
+    }
+    /*Tablets [601px -> 1200px]*/
+}
+@media only screen and (max-width:768px){
+    .calendar-layout { 
+        padding: 15px; 
+    }
+    .cell { 
+        padding: 8px;
+    }
+    .info-title { 
+        font-size: 22px;
+    }
+    .infoMain { 
+        font-size: 18px;
+    }
+    #instructionsPopup {
+        padding: 10px;
+        width: 340px;
+    } 
+    #instructionsPopup p, #instructionsPopup ul { 
+        font-size: 13px;
+    }
+    #instructionsPopup ul { 
+        padding-left: 15px;
+    }
+    .century_text, .week_month, .year_code { 
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 362px){
+	/*Small smartphones [325px -> 425px]*/
+    #instructionsPopup { 
+        width: 320px;
+    } 
+   #day-of-week {
+        font-size: 16px; 
+    }
+    .calendar-layout { 
+        box-shadow: none; 
+    }
+    body { 
+        height: 95vh;
+        background-color: #fff; 
+    }
+}
