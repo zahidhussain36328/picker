@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Hierarchy Management</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="p-4">
+
+    <input placeholder="Search by ID or Role..." type="text" class="search border py-1 px-3 text-base">
+    
+    <table class="border-separate border-spacing-6 mt-4">
+        <thead>
+            <tr class="border border-gray-300">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Salary</th>
+                <th>Subordinates</th>
+            </tr>
+        </thead>
+        <tbody class="employesdata"></tbody>
+    </table>
+
+    <div class="mt-4"> 
+        <b>Total Salary of All Employees:</b>
+        <h1 class="ttlSal"></h1>
+    </div>
+
+    <script>
+        const employees = [
+            {
+                id: 1,
+                name: "John Doe",
+                role: "CEO",
+                salary: 100000,
+                subordinates: [
+                    {
+                        id: 2,
+                        name: "Jane Smith",
+                        role: "CTO",
+                        salary: 80000,
+                        subordinates: [
+                            {
+                                id: 3,
+                                name: "Alice Johnson",
+                                role: "Software Engineer",
+                                salary: 60000,
+                                subordinates: []
+                            },
+                        ]
+                    },
+                    {
+                        id: 4,
+                        name: "Bob Brown",
+                        role: "CFO",
+                        salary: 90000,
+                        subordinates: [],
+                    }
+                ]
+            }
+        ];
+
+        let employesdata = document.querySelector(".employesdata");
+
+        const generateRows = (employees) => {
+            return employees.map((emp) => `
+                <tr>
+                    <td>${emp.id}</td>
+                    <td>${emp.name}</td>
+                    <td>${emp.role}</td>
+                    <td>${emp.salary}</td>
+                    <td>${emp.subordinates.length}</td>
+                </tr>
+                ${emp.subordinates.length > 0 ? generateRows(emp.subordinates) : ''}
+            `).join("");
+        };
+
+        employesdata.innerHTML = generateRows(employees);
+
+        // Calculate and Display Total Salary
+        let ttlSal = document.querySelector(".ttlSal");
+        function calculateTotalSalary(employees) {
+            return employees.reduce((total, emp) => total + emp.salary + calculateTotalSalary(emp.subordinates), 0);
+        }
+        ttlSal.innerHTML = calculateTotalSalary(employees);
+
+        // Find Employee by ID
+        function findEmployeeById(employees, id) {
+            for (let employee of employees) {
+                if (employee.id === id) return employee;
+                const found = findEmployeeById(employee.subordinates, id);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        // Find Employees by Role
+        function findEmployeesByRole(employees, role) {
+            let matches = [];
+            for (let employee of employees) {
+                if (employee.role.toLowerCase().includes(role.toLowerCase())) {
+                    matches.push(employee);
+                }
+                matches = matches.concat(findEmployeesByRole(employee.subordinates, role));
+            }
+            return matches;
+        }
+
+        // Search Functionality
+        let search = document.querySelector(".search");
+        search.addEventListener("input", function () {
+            let query = search.value.trim();
+
+            // Show all employees if input is empty
+            if (!query) {
+                employesdata.innerHTML = generateRows(employees); 
+                return;
+            }
+
+            let filteredEmployees;
+            if (!isNaN(query)) {
+                // Search by ID
+                let result = findEmployeeById(employees, Number(query));
+                filteredEmployees = result ? [result] : [];
+            } else {
+                // Search by Role
+                filteredEmployees = findEmployeesByRole(employees, query);
+            }
+
+            if (filteredEmployees.length > 0) {
+                employesdata.innerHTML = generateRows(filteredEmployees);
+            } else {
+                employesdata.innerHTML = "<tr><td colspan='5'>No employee found</td></tr>";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
